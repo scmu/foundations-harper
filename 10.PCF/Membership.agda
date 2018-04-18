@@ -6,8 +6,7 @@ open import Relation.Nullary
 open import Relation.Binary.PropositionalEquality
 
 open import Data.List.Any as Any
-open Any.Membership-≡
-
+open import Data.List.Any.Membership.Propositional
 -- _∈_
 
 ∈-++-pos : ∀ {A : Set} {x : A} xs ys → x ∈ xs ++ ys

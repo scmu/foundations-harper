@@ -6,7 +6,7 @@ open import Data.Fin hiding (_+_; inject)
 open import Data.String hiding (_++_) renaming (_≟_ to _≟S_)
 open import Membership
 open import Data.List.Any hiding (map)
-open Data.List.Any.Membership-≡
+open import Data.List.Any.Membership.Propositional
 open import Relation.Binary.PropositionalEquality hiding ([_])
 open import Relation.Nullary using (¬_; yes; no)
 

@@ -5,7 +5,7 @@ open import Data.String using (String) renaming (_≟_ to _≟S_)
 open import Data.Product hiding (map)
 open import Data.List
 open import Data.List.Any hiding (map)
-open Data.List.Any.Membership-≡
+open import Data.List.Any.Membership.Propositional
 
 open import Assoc
 open import Exp

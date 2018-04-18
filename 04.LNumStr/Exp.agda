@@ -1,6 +1,6 @@
 module Exp where
 
-open import Data.Nat renaming (_≟_ to _≟ℕ_)
+open import Data.Nat renaming (_≟_ to _≟ℕ_) hiding (_^_)
 open import Data.Fin hiding (_+_; inject)
 open import Data.String hiding (_++_) renaming (_≟_ to _≟S_)
 open import Data.List 

@@ -7,7 +7,7 @@ open import Data.Sum using (_⊎_; inj₁; inj₂)
 open import Data.List
 open import Membership
 open import Data.List.Any hiding (map)
-open Data.List.Any.Membership-≡
+open import Data.List.Any.Membership.Propositional
 open import Relation.Binary.PropositionalEquality hiding ([_])
 open import Relation.Nullary using (¬_; yes; no)
 

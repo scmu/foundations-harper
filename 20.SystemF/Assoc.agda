@@ -7,7 +7,7 @@ open import Relation.Binary.PropositionalEquality hiding ([_])
 open import Membership
 
 open import Data.List.Any as Any hiding (map)
-open Any.Membership-≡
+open import Data.List.Any.Membership.Propositional
 
 data Distct {A : Set} : List A → Set where
   [] : Distct []

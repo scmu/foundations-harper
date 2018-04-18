@@ -12,7 +12,7 @@ open import Exp
 open import Membership public
 
 open import Data.List.Any as Any
-open Any.Membership-≡
+open import Data.List.Any.Membership.Propositional
 
 {-
 ∉-·-l : ∀ {x} e₁ e₂ → x ∉ fvars (e₁ · e₂) → x ∉ fvars e₁
