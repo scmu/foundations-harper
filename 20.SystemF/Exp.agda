@@ -2,6 +2,7 @@ module Exp where
 
 open import Data.Nat hiding (_*_) renaming (_≟_ to _≟ℕ_)
 open import Data.Fin hiding (_+_; inject) renaming (inject₁ to injectFin)
+
 open import Data.String hiding (_++_) renaming (_≟_ to _≟S_)
 open import Data.List 
 open import Relation.Binary.PropositionalEquality
@@ -38,22 +39,10 @@ inject₁ (fv x) = fv x
 inject₁ (Ȧ e) = Ȧ (inject₁ e)
 inject₁ (σ ⇒ τ) = inject₁ σ ⇒ inject₁ τ
 
-private 
-
-  ne₁ : ∀ {n m} {i : Fin m} → ¬ (suc n ≡ toℕ (suc i)) → ¬ (n ≡ toℕ i)
-  ne₁ {n} {m} {i} ne n≡i rewrite n≡i = ne refl
-
-  lowerF : ∀ n → (i : Fin (suc n)) → ¬ (n ≡ toℕ i) → Fin n
-  lowerF zero zero ne with ne refl
-  lowerF zero zero ne | ()
-  lowerF zero (suc ()) _
-  lowerF (suc n) zero _ = zero
-  lowerF (suc n) (suc i) ne = suc (lowerF n i (ne₁ ne))
-
 [_↦_]₁ : ∀ m → Typ m → Typ (suc m) → Typ m
 [ n ↦ t ]₁ (bv i) with n ≟ℕ toℕ i
 ... | yes _ = t
-... | no  n≠i = bv (lowerF n i n≠i)
+... | no  n≠i = bv (lower₁ i n≠i)
 [ n ↦ t ]₁ (fv x) = fv x
 [ n ↦ t ]₁ (Ȧ e) = Ȧ ([ suc n ↦ inject₁ t ]₁ e)
 [ n ↦ t ]₁ (e₁ ⇒ e₂) = [ n ↦ t ]₁ e₁ ⇒ [ n ↦ t ]₁ e₂
@@ -63,9 +52,6 @@ inst₁ u = [ 0 ↦ u ]₁
 
 instVar₁ : FName → Typ 1 → Typ 0
 instVar₁ x = inst₁ (fv x)
-
-private
- postulate i+1+j≡1+i+j : ∀ i j → i + suc j ≡ suc (i + j)
 
 [_↝_]₁ : ∀ {m} → FName → Typ m → Typ m → Typ m
 [ x ↝ τ ]₁ (bv i) = bv i
@@ -96,15 +82,10 @@ injectτ (e ⋆ τ) = injectτ e ⋆ inject₁ τ
 
 -- open the outermost bound variable
 
-lowerF-inject : ∀ {n i} neq → (lowerF n (injectFin i) neq) ≡ i
-lowerF-inject {zero} {()} _
-lowerF-inject {suc n} {zero} _ = refl
-lowerF-inject {suc n} {suc i} neq rewrite lowerF-inject {n} {i} (ne₁ neq) = refl
-
 [_↦_] : ∀ {m} n → Exp m n → Exp m (suc n) → Exp m n
 [ n ↦ t ] (bv i) with n ≟ℕ toℕ i
 ... | yes _ = t
-... | no  n≠i = bv (lowerF n i n≠i)
+... | no  n≠i = bv (lower₁ i n≠i)
 [ n ↦ t ] (fv x) = fv x
 [ n ↦ t ] (ƛ τ e) = ƛ τ ([ suc n ↦ inject t ] e)
 [ n ↦ t ] (e₁ · e₂) = [ n ↦ t ] e₁ · [ n ↦ t ] e₂
