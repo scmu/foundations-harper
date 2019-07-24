@@ -1,18 +1,14 @@
 module FVars where
 
-open import Data.Sum
 open import Data.Product 
 open import Data.Nat
 open import Data.List
-open import Relation.Nullary
-open import Relation.Binary.PropositionalEquality
 
 open import Exp
 
 open import Membership public
 
-open import Data.List.Any as Any
-open Any.Membership-≡
+open import Data.List.Membership.Propositional
 
 {-
 ∉-·-l : ∀ {x} e₁ e₂ → x ∉ fvars (e₁ · e₂) → x ∉ fvars e₁

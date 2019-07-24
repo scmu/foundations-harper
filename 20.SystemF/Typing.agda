@@ -4,10 +4,11 @@ open import Data.Nat
 open import Data.String using (String) renaming (_≟_ to _≟S_)
 open import Data.Product hiding (map)
 open import Data.List
-open import Data.List.Any hiding (map)
-open Data.List.Any.Membership-≡
 open import Relation.Binary.PropositionalEquality hiding ([_])
 open import Relation.Nullary using (¬_)
+
+open import Data.List.Membership.Propositional
+open import Data.List.Relation.Unary.Any hiding (map)
 
 open import Assoc
 open import Exp

@@ -6,10 +6,11 @@ open import Data.Product hiding (map)
 open import Data.Sum using (_⊎_; inj₁; inj₂)
 open import Data.List
 open import Membership
-open import Data.List.Any hiding (map)
-open Data.List.Any.Membership-≡
 open import Relation.Binary.PropositionalEquality hiding ([_])
 open import Relation.Nullary using (¬_; yes; no)
+
+open import Data.List.Membership.Propositional
+open import Data.List.Relation.Unary.Any
 
 open import Exp
 open import Typing

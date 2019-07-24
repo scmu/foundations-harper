@@ -3,13 +3,15 @@ module Infrastructure where
 open import Data.Empty using (⊥-elim)
 open import Data.Nat renaming (_≟_ to _≟ℕ_)
 open import Data.Fin hiding (_+_; inject) renaming (inject₁ to injectF)
+open import Data.Fin.Properties
 open import Data.String hiding (_++_) renaming (_≟_ to _≟S_)
-open import Membership
-open import Data.List.Any hiding (map)
-open Data.List.Any.Membership-≡
 open import Relation.Binary.PropositionalEquality hiding ([_])
 open import Relation.Nullary using (¬_; yes; no)
 
+open import Data.List.Membership.Propositional
+open import Data.List.Relation.Unary.Any
+
+open import Membership
 open import Exp
 
 inject₁-subst₁ : ∀ {m} x (τ σ : Typ m) 
@@ -26,7 +28,6 @@ inject₁-subst₁ x τ (Ȧ σ)
 
 
 private 
-
  suc-inj : ∀ {x y : ℕ} → _≡_ {A = ℕ} (suc x) (suc y) → x ≡ y
  suc-inj refl = refl
 
@@ -38,7 +39,7 @@ inst₁-closed : ∀ {m} (τ : Typ m) f
                → [ m ↦ f ]₁ (inject₁ τ) ≡ τ
 inst₁-closed {m} (bv i) f with m ≟ℕ toℕ (injectF i)
 ... | yes m≡i = ⊥-elim (n∉Finn i m≡i)
-... | no  m≠i rewrite lowerF-inject m≠i = refl
+... | no  m≠i rewrite lower₁-inject₁′ i m≠i = refl
 inst₁-closed (fv x) f = refl
 inst₁-closed (σ ⇒ τ) f 
   rewrite inst₁-closed σ f
